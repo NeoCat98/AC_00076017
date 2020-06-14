@@ -50,166 +50,95 @@ calculo:
     div cl
 	mov [320h],al
     ; Mostrar el mensaje dependiendo de la calificacion
-    mov cx,10d
-    CMP ax,cx
+    mov cl,10d
+    CMP al,cl
     JE msg10
-    mov cx,9d
-    CMP ax,cx
+    mov cl,9d
+    CMP al,cl
     JE msg9
-    mov cx,8d
-    CMP ax,cx
+    mov cl,8d
+    CMP al,cl
     JE msg8
-    mov cx,7d
-    CMP ax,cx
+    mov cl,7d
+    CMP al,cl
     JE msg7
-    mov cx,6d
-    CMP ax,cx
+    mov cl,6d
+    CMP al,cl
     JE msg6
-    mov cx,5d
-    CMP ax,cx
+    mov cl,5d
+    CMP al,cl
     JE msg5
-    mov cx,4d
-    CMP ax,cx
+    mov cl,4d
+    CMP al,cl
     JE msg4
-    mov cx,3d
-    CMP ax,cx
+    mov cl,3d
+    CMP al,cl
     JE msg3
-    mov cx,2d
-    CMP ax,cx
+    mov cl,2d
+    CMP al,cl
     JE msg2
-    mov cx,1d
-    CMP ax,cx
+    mov cl,1d
+    CMP al,cl
     JE msg1
 msg10:
 	mov dx,nota10
 	call w_strng
 	mov di,0d
-	call saveMsg10
+	;call saveMsg10
 	int 	20h
-saveMsg10:
-	mov 	cl, [nota10+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg10
-	ret
 msg9:
 	mov dx,nota9
 	call w_strng
 	mov di,0d
-	call saveMsg9
+	;call saveMsg9
 	int 	20h
-saveMsg9:
-	mov 	cl, [nota9+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg9
-	ret
 msg8:
 	mov dx,nota8
 	call w_strng
 	mov di,0d
-	call saveMsg8
+	;call saveMsg8
 	int 	20h
-saveMsg8:
-	mov 	cl, [nota8+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg8
-	ret
 msg7:
 	mov dx,nota7
 	call w_strng
 	mov di,0d
-	call saveMsg7
+	;call saveMsg7
 	int 	20h
-saveMsg7:
-	mov 	cl, [nota7+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg7
-	ret
 msg6:
 	mov dx,nota6
 	call w_strng
 	mov di,0d
-	call saveMsg6
+	;call saveMsg6
 	int 	20h
-saveMsg6:
-	mov 	cl, [nota6+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg6
-	ret
 msg5:
 	mov dx,nota5
 	call w_strng
 	mov di,0d
-	call saveMsg5
+	;call saveMsg5
 	int 	20h
-saveMsg5:
-	mov 	cl, [nota5+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg5
-	ret
 msg4:
 	mov dx,nota4
 	call w_strng
-	mov di,0d
-	call saveMsg4
+	;call saveMsg4
 	int 	20h
-saveMsg4:
-	mov 	cl, [nota4+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg4
-	ret
 msg3:
 	mov dx,nota3
 	call w_strng
 	mov di,0d
-	call saveMsg3
+	;call saveMsg3
 	int 	20h
-saveMsg3:
-	mov 	cl, [nota3+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg3
-	ret
 msg2:
 	mov dx,nota2
 	call w_strng
 	mov di,0d
-	call saveMsg2
+	;call saveMsg2
 	int 	20h
-saveMsg2:
-	mov 	cl, [nota2+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg2
-	ret
 msg1:
 	mov dx,nota1
 	call w_strng
 	mov di,0d
-	call saveMsg1
+	;call saveMsg1
 	int 	20h
-saveMsg1:
-	mov 	cl, [nota1+di]
-    mov     [300h+di],cl
-	inc	di
-	cmp cl, "$"
-	jb	saveMsg1
-	ret
 texto:	mov 	ah, 00h
 	mov	al, 03h
 	int 	10h
