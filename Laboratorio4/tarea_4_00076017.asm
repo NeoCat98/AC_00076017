@@ -85,31 +85,31 @@ msg10:
 	call w_strng
 	mov di,0d
 	;call saveMsg10
-	int 	20h
+	int 20h
 msg9:
 	mov dx,nota9
 	call w_strng
 	mov di,0d
 	;call saveMsg9
-	int 	20h
+	int 20h
 msg8:
 	mov dx,nota8
 	call w_strng
 	mov di,0d
 	;call saveMsg8
-	int 	20h
+	int 20h
 msg7:
 	mov dx,nota7
 	call w_strng
 	mov di,0d
 	;call saveMsg7
-	int 	20h
+	int 20h
 msg6:
 	mov dx,nota6
 	call w_strng
 	mov di,0d
 	;call saveMsg6
-	int 	20h
+	int 20h
 msg5:
 	mov dx,nota5
 	call w_strng
