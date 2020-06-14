@@ -115,7 +115,7 @@ numero9:
 	JE calculo
 	call transformar
 calculo:
-    ; se realiza la suma
+	; se realiza la suma
 	mov ax, 0d
     mov cx,[300h]
     mov ax,cx
@@ -308,24 +308,24 @@ w_strng:
 section .data
 
 msg 	db 	"Ingrese su los ultimos 5 numeros del carnet: $"
-nota10		db 	"Me recupero$"
+nota10		db 	"Perfecto solo Dios$"
 len10 	equ	$-nota10
-nota9		db 	"Me recupero$"
+nota9		db 	"Siempre me esfuerzo$"
 len9	equ	$-nota9
-nota8		db 	"Me recupero$"
+nota8		db 	"Colocho$"
 len8	equ	$-nota8
-nota7		db 	"Me recupero$"
+nota7		db 	"Muy bien$"
 len7	equ	$-nota7
-nota6		db 	"Me recupero$"
+nota6		db 	"Peor es nada$"
 len6	equ	$-nota6
-nota5		db 	"Me recupero$"
+nota5		db 	"En el segundo$"
 len5	equ	$-nota5
 nota4		db 	"Me recupero$"
 len4 	equ	$-nota4
-nota3		db 	"Me recupero$"
+nota3		db 	"Hay salud$"
 len3 	equ	$-nota3
-nota2		db 	"Me recupero$"
+nota2		db 	"Aun se pasa$"
 len2 	equ	$-nota2
-nota1		db 	"Me recupero$"
+nota1		db 	"Solo necesito el 0$"
 len1 	equ	$-nota1
 nl	db 	0xA, 0xD, "$"
