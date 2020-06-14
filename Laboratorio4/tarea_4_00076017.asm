@@ -110,12 +110,12 @@ numero8:
 numero9:
 	mov al,9d
 	mov [300h+di],al
-	inc di
-	CMP di,5d
+	CMP di,4d
 	JE calculo
+	inc di
 	call transformar
 calculo:
-	; se realiza la suma
+    ; se realiza la suma
 	mov ax, 0d
     mov cx,[300h]
     mov ax,cx
@@ -128,8 +128,12 @@ calculo:
     ADD ax,cx
     mov cx,[304h]
     ADD ax,cx
+	mov [310h],al
+	mov ax,[310h]
     ; Promedio
-    div di
+    mov cl,5d
+    div cl
+	mov [320h],al
     ; Mostrar el mensaje dependiendo de la calificacion
     mov cx,10d
     CMP ax,cx
@@ -169,9 +173,9 @@ msg10:
 	int 	20h
 saveMsg10:
 	mov 	cl, [nota10+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len10
+	cmp cl, "$"
 	jb	saveMsg10
 	ret
 msg9:
@@ -182,9 +186,9 @@ msg9:
 	int 	20h
 saveMsg9:
 	mov 	cl, [nota9+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len9
+	cmp cl, "$"
 	jb	saveMsg9
 	ret
 msg8:
@@ -195,9 +199,9 @@ msg8:
 	int 	20h
 saveMsg8:
 	mov 	cl, [nota8+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len8
+	cmp cl, "$"
 	jb	saveMsg8
 	ret
 msg7:
@@ -208,9 +212,9 @@ msg7:
 	int 	20h
 saveMsg7:
 	mov 	cl, [nota7+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len7
+	cmp cl, "$"
 	jb	saveMsg7
 	ret
 msg6:
@@ -221,9 +225,9 @@ msg6:
 	int 	20h
 saveMsg6:
 	mov 	cl, [nota6+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len6
+	cmp cl, "$"
 	jb	saveMsg6
 	ret
 msg5:
@@ -234,9 +238,9 @@ msg5:
 	int 	20h
 saveMsg5:
 	mov 	cl, [nota5+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len5
+	cmp cl, "$"
 	jb	saveMsg5
 	ret
 msg4:
@@ -247,9 +251,9 @@ msg4:
 	int 	20h
 saveMsg4:
 	mov 	cl, [nota4+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len4
+	cmp cl, "$"
 	jb	saveMsg4
 	ret
 msg3:
@@ -260,9 +264,9 @@ msg3:
 	int 	20h
 saveMsg3:
 	mov 	cl, [nota3+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len3
+	cmp cl, "$"
 	jb	saveMsg3
 	ret
 msg2:
@@ -273,9 +277,9 @@ msg2:
 	int 	20h
 saveMsg2:
 	mov 	cl, [nota2+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len2
+	cmp cl, "$"
 	jb	saveMsg2
 	ret
 msg1:
@@ -286,9 +290,9 @@ msg1:
 	int 	20h
 saveMsg1:
 	mov 	cl, [nota1+di]
-    mov     [200h+di],cl
+    mov     [300h+di],cl
 	inc	di
-	cmp di, len1
+	cmp cl, "$"
 	jb	saveMsg1
 	ret
 texto:	mov 	ah, 00h
@@ -306,26 +310,15 @@ w_strng:
 	ret
 
 section .data
-
-msg 	db 	"Ingrese su los ultimos 5 numeros del carnet: $"
+msg 	db 	"Ingrese los ultimos 5 numeros del carnet: $"
 nota10		db 	"Perfecto solo Dios$"
-len10 	equ	$-nota10
 nota9		db 	"Siempre me esfuerzo$"
-len9	equ	$-nota9
 nota8		db 	"Colocho$"
-len8	equ	$-nota8
 nota7		db 	"Muy bien$"
-len7	equ	$-nota7
 nota6		db 	"Peor es nada$"
-len6	equ	$-nota6
 nota5		db 	"En el segundo$"
-len5	equ	$-nota5
 nota4		db 	"Me recupero$"
-len4 	equ	$-nota4
 nota3		db 	"Hay salud$"
-len3 	equ	$-nota3
 nota2		db 	"Aun se pasa$"
-len2 	equ	$-nota2
 nota1		db 	"Solo necesito el 0$"
-len1 	equ	$-nota1
 nl	db 	0xA, 0xD, "$"
