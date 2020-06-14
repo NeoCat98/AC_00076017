@@ -2,22 +2,138 @@ org 	100h
 
 section .text
 
+	mov 	dx, msg
+	call 	w_strng
+
+	xor 	si, si 	;lo mimso que: mov si, 0000h
+lupi:	call 	kb
+	cmp 	al, "$"
+	je	mostrar
+	mov	[300h+si], al ; CS:0300h en adelante
+	inc 	si
+	jmp 	lupi
+
+mostrar:mov 	dx, nl
+	call	w_strng
+	mov	byte [300h+si], "$"
+	mov di,0d
+	; Transformar los numero de ASCII a su numero correspondiente para poder emplear la suma
+	call transformar
+	call 	kb	; solo detenemos la ejecución
+	int 	20h
+transformar:
+	mov al,[300h+di]
+	CMP al,48d
+	JE	numero0
+	CMP al,49d
+	JE	numero1
+	CMP al,50d
+	JE	numero2
+	CMP al,51d
+	JE	numero3
+	CMP al,52d
+	JE	numero4
+	CMP al,53d
+	JE	numero5
+	CMP al,54d
+	JE	numero6
+	CMP al,55d
+	JE	numero7
+	CMP al,56d
+	JE	numero8
+	CMP al,57d
+	JE	numero9
+	ret
+numero0:
+	mov al,0d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero1:
+	mov al,1d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero2:
+	mov al,2d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero3:
+	mov al,3d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero4:
+	mov al,4d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero5:
+	mov ax,5d
+	mov [300h+di],ax
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero6:
+	mov al,6d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero7:
+	mov al,7d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero8:
+	mov al,8d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
+numero9:
+	mov al,9d
+	mov [300h+di],al
+	CMP di,4d
+	JE calculo
+	inc di
+	call transformar
 calculo:
-    ; Suma 7 + 6 + 0 + 1 + 7
-    mov cx,7d
+    ; se realiza la suma
+	mov ax, 0d
+    mov cx,[300h]
     mov ax,cx
-    mov cx,6d
+    mov cx,[301h]
     mov bx,cx
     ADD ax,bx
-    mov cx, 0d
+    mov cx,[302h]
     ADD ax,cx
-    mov cx, 1d
+    mov cx,[303h]
     ADD ax,cx
-    mov cx, 7d
+    mov cx,[304h]
     ADD ax,cx
-    ; Promedio 
-    mov cx,5d
-    div cx
+	mov [310h],al
+	mov ax,[310h]
+    ; Promedio
+    mov cl,5d
+    div cl
+	mov [320h],al
     ; Mostrar el mensaje dependiendo de la calificacion
     mov cx,10d
     CMP ax,cx
@@ -49,163 +165,38 @@ calculo:
     mov cx,1d
     CMP ax,cx
     ;JE msg1
+
 msg4:
-	call 	texto	
-	call 	cursor
-	call 	phrase4
-	call	kbwait
+	mov dx,nota4
+	call w_strng
+	mov di,0d
+	call saveMsg4
 	int 	20h
-texto:	
-    mov 	ah, 00h
-	mov	    al, 03h
+saveMsg4:
+	mov 	cl, [nota4+di]
+    mov     [200h+di],cl
+	inc	di
+	cmp di, len4
+	jb	saveMsg4
+	ret
+
+texto:	mov 	ah, 00h
+	mov	al, 03h
 	int 	10h
 	ret
 
-cursor: 
-    mov	    ah, 01h
-	mov 	ch, 00000000b
-	mov 	cl, 00001110b;   IRGB
-	int 	10h
+kb: 	mov	ah, 1h
+	int 	21h
 	ret
 
-w_char:	mov 	ah, 09h
-	mov 	al, cl
-	mov 	bh, 0h
-	mov 	bl, 00001111b
-	mov 	cx, 1h
-	int 	10h
+w_strng:
+	mov	ah, 09h
+	int 	21h
 	ret
 
-kbwait: 
-    mov 	ax, 0000h
-	int 	16h
-	ret
-
-m_cursr:
-    mov 	ah, 02h
-	mov 	dx, di  ; columna
-	mov 	dh, 4d ; fila
-	mov 	bh, 0h
-	int 	10h
-	ret
-phrase1:	mov 	di, 0d
-lupi1:	
-    mov 	cl, [nota1+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len1
-	jb	lupi1
-	ret
-phrase2:	mov 	di, 0d
-lupi2:	
-    mov 	cl, [nota2+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len2
-	jb	lupi2
-	ret
-phrase3:	mov 	di, 0d
-lupi3:	
-    mov 	cl, [nota3+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len3
-	jb	lupi3
-	ret
-phrase4:	mov 	di, 10d
-lupi4:	
-    mov 	cl, [nota4+di-10d]
-    mov     [200h+di-10d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len4
-	jb	lupi4
-	ret
-phrase5:	mov 	di, 0d
-lupi5:	
-    mov 	cl, [nota5+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len5
-	jb	lupi5
-	ret
-phrase6:	mov 	di, 0d
-lupi6:	
-    mov 	cl, [nota6+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len6
-	jb	lupi6
-	ret
-phrase7:	mov 	di, 0d
-lupi7:	
-    mov 	cl, [nota7+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len7
-	jb	lupi7
-	ret
-phrase8:	mov 	di, 0d
-lupi8:	
-    mov 	cl, [nota8+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len8
-	jb	lupi8
-	ret
-phrase9:	mov 	di, 0d
-lupi9:	
-    mov 	cl, [nota9+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len9
-	jb	lupi9
-	ret
-phrase10:	mov 	di, 0d
-lupi10:	
-    mov 	cl, [nota10+di-0d]
-    mov     [200h+di-0d],cl
-	call    m_cursr
-	call 	w_char
-	inc	di
-	cmp 	di, len10
-	jb	lupi10
-	ret
 section .data
-nota10		db 	"Perfecto solo Dios"
-len10 	equ	$-nota10
-nota9		db 	"Siempre me esfuerzo"
-len9 	equ	$-nota9
-nota8		db 	"Colocho"
-len8 	equ	$-nota8
-nota7		db 	"Muy bien"
-len7	equ	$-nota7
-nota6		db 	"Peor es nada"
-len6 	equ	$-nota6
-nota5		db 	"En el segundo"
-len5 	equ	$-nota5
-nota4		db 	"Me recupero"
-len4 	equ	$-nota4+10d
-nota3		db 	"Hay salud"
-len3 	equ	$-nota3
-nota2		db 	"Aun se pasa"
-len2	equ	$-nota2
-nota1		db 	"Solo necesito el 0"
-len1 	equ	$-nota1
+
+msg 	db 	"Ingrese su los ultimos 5 numeros del carnet: $"
+nota4		db 	"Me recupero$"
+len4 	equ	$-nota4
+nl	db 	0xA, 0xD, "$"
