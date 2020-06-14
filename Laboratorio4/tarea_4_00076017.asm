@@ -23,96 +23,11 @@ mostrar:mov 	dx, nl
 	int 	20h
 transformar:
 	mov al,[300h+di]
-	CMP al,48d
-	JE	numero0
-	CMP al,49d
-	JE	numero1
-	CMP al,50d
-	JE	numero2
-	CMP al,51d
-	JE	numero3
-	CMP al,52d
-	JE	numero4
-	CMP al,53d
-	JE	numero5
-	CMP al,54d
-	JE	numero6
-	CMP al,55d
-	JE	numero7
-	CMP al,56d
-	JE	numero8
-	CMP al,57d
-	JE	numero9
-	ret
-numero0:
-	mov al,0d
+	SUB al,48d
 	mov [300h+di],al
-	CMP di,4d
-	JE calculo
 	inc di
-	call transformar
-numero1:
-	mov al,1d
-	mov [300h+di],al
-	CMP di,4d
+	CMP di,5d
 	JE calculo
-	inc di
-	call transformar
-numero2:
-	mov al,2d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero3:
-	mov al,3d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero4:
-	mov al,4d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero5:
-	mov ax,5d
-	mov [300h+di],ax
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero6:
-	mov al,6d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero7:
-	mov al,7d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero8:
-	mov al,8d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
-	call transformar
-numero9:
-	mov al,9d
-	mov [300h+di],al
-	CMP di,4d
-	JE calculo
-	inc di
 	call transformar
 calculo:
     ; se realiza la suma
